@@ -1,31 +1,27 @@
-import React, { createContext, useState } from "react";
-import PostForm from "./components/PostForm";
-import PostList from "./components/PostList";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { articles } from './articles.json';
+import Header from './components/Header';
 
-export const AppContext = createContext();
+import Content from './components/Content';
 
-const App = () => {
-  const [posts, setPosts] = useState([]);
+const useStyles = makeStyles((theme) => ({
+  root: {
+    minHeight: '100vh',
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
 
-  const addPost = (post) => {
-    const newPost = { ...post, date: new Date().toLocaleString(), id: Date.now() };
-    setPosts([...posts, newPost]);
-  };
-
-  const deletePost = (postId) => {
-    setPosts(posts.filter((post) => post.id !== postId));
-  };
+function App() {
+  const classes = useStyles();
 
   return (
-    <AppContext.Provider value={{ posts, addPost, deletePost }}>
-      <div>
-        <h1>Microblogging App</h1>
-        <PostForm />
-        <PostList />
-      </div>
-    </AppContext.Provider>
+    <div className={classes.root}>
+      <Header />
+      
+      <Content articles={articles} />
+    </div>
   );
-};
+}
 
 export default App;
-
