@@ -1,26 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { articles } from './articles.json';
-import Header from './components/Header';
-
-import Content from './components/Content';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    minHeight: '100vh',
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
+import { Route, Routes } from 'react-router-dom';
+import ArticleList from './components/ArticleList';
+import ArticlePage from './components/ArticlePage';
 
 function App() {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
-      <Header />
-      
-      <Content articles={articles} />
-    </div>
+    <Routes>
+      <Route exact path="/" element={<ArticleList/>} />
+      <Route exact path="/article/:id" element={<ArticlePage/>} />
+    </Routes>
   );
 }
 
